@@ -1,10 +1,11 @@
-import { Group, MantineThemeContext } from '@mantine/core'
+import { Group, MantineThemeContext,Box } from '@mantine/core'
 import React from 'react'
 
 import classes from "./Style.module.css"
 import Logo from './Logo'
 import AuthButtons from './AuthButtons'
 import ThemeSwitcher from './ThemeSwitcher'
+import NavigationMobile from './NavigationMobile'
 
 const Navbar = () => {
   return (
@@ -14,13 +15,17 @@ const Navbar = () => {
             <Logo/>
         </div>
         <div className='flex items-center gap-x-5'>
-            <div>
+            <Box visibleFrom='sm'>
                 <ThemeSwitcher/>
-            </div>
-            <div>
+            </Box>
+            <Box visibleFrom='md'>
                 <AuthButtons/>
-            </div>
+            </Box>
         </div>
+
+        <Box hiddenFrom='md'>
+        <NavigationMobile/>
+        </Box>
        </Group>
     </nav>
   )
