@@ -1,0 +1,12 @@
+.parentContainer {
+  background-color: light-dark(
+    var(--mantine-color-gray-1),
+    var(--mantine-color-body)
+  );
+}
+
+.container {
+  margin-top: 20px;
+  background-color: light-dark(var(--martine-color-gray-1)),
+    var(--martine-color-body);
+}
