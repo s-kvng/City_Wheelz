@@ -4,3 +4,14 @@ export interface ISignupFormDetails{
     confirmPassword: string,
     terms: boolean,
 }
+
+export interface IDriverFormDetails{
+    firstname: string,
+    lastname: string,
+    phone: string,
+    address: string,
+    licenseNumber: string,
+    drivingLicenseExpiry: string,
+    email: string,
+    ghanaCard: string,
+}

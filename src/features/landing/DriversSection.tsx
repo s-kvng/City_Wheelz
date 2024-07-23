@@ -4,7 +4,7 @@ import React from 'react'
 
 const DriversSection = () => {
   return (
-    <Container my={"3rem"}>
+    <Container bg={"red"} my={"3rem"}>
         <Grid justify="space-around">
             <GridCol span={{ base: 12, md: 6, lg: 6 }}>
                 <DriverCard/>

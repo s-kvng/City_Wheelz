@@ -17,37 +17,37 @@ const links = [
       },
     {
         label: 'New Driver',
-        href: '/add/drivers',
+        href: '/admin/add/driver',
         icon: <IconUsersPlus size="1rem" stroke={1.5}/>,
         exact: false,
       },
       {
         label: 'Manage Drivers',
-        href: '/drivers',
+        href: '/admin/drivers',
         icon: <IconUsersGroup size="1rem" stroke={1.5}/>,
         exact: false,
       },
       {
         label: 'Add Car',
-        href: '/add/cars',
+        href: '/admin/add/car',
         icon: <IconCar size={"1rem"} stroke={1.5} />,
         exact: false,
       },
       {
         label: 'Manage Cars',
-        href: '/cars',
+        href: '/admin/cars',
         icon: <IconCarGarage size={"1rem"} stroke={1.5} />,
         exact: false,
       },
       {
         label: 'Bookings',
-        href: '/bookings',
+        href: '/admin/bookings',
         icon: <IconClipboardList size={"1rem"} stroke={1.5} /> ,
         exact: false,
       },
       {
         label: 'Settings',
-        href: '/settings',
+        href: '/admin/settings',
         icon: <IconSettingsCheck  size={"1rem"} stroke={1.5}/>,
         exact: false,
       }
