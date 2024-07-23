@@ -2,6 +2,7 @@ import React from 'react'
 import { Box , Card, Container, Divider, Flex, Title } from '@mantine/core';
 import classes from './Style.module.css'
 import SearchEngine from '@/components/shared/SearchEngine';
+import CarList from './CarList';
 
 const CarsLayout = () => {
   return (
@@ -24,7 +25,7 @@ const CarsLayout = () => {
                     Filter Components
                 </Box>
             </Card>
-
+            <CarList/>
         </Flex>
     </Container>
   )
