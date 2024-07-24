@@ -15,3 +15,17 @@ export interface IDriverFormDetails{
     email: string,
     ghanaCard: string,
 }
+
+export interface ICar {
+    make: string,
+    model:  string
+    year: string,
+    description: string,
+    color: string,
+    transmission: string,
+    seatingCapacity: string,
+    fuelType: string,
+    pricePerDay: string,
+    image: string,
+    isAvailable: boolean,
+}
