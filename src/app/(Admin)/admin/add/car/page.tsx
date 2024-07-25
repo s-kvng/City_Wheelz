@@ -1,7 +1,7 @@
 import Car from '@/components/forms/Car'
 import React from 'react'
 
-const CarPage = () => {
+const AddCarPage = () => {
   return (
     <>
         <Car/>
@@ -9,4 +9,4 @@ const CarPage = () => {
   )
 }
 
-export default CarPage
+export default AddCarPage
