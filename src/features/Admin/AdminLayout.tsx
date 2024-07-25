@@ -40,8 +40,8 @@ const links = [
         exact: false,
       },
       {
-        label: 'Bookings',
-        href: '/admin/bookings',
+        label: 'New Booking',
+        href: '/admin/add/booking',
         icon: <IconClipboardList size={"1rem"} stroke={1.5} /> ,
         exact: false,
       },

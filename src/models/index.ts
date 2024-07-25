@@ -29,3 +29,18 @@ export interface ICar {
     image: string,
     isAvailable: boolean,
 }
+
+export interface IBooking{
+    imageUrl: string,
+    firstname: string,
+    lastname: string,
+    phone: string,
+    address: string,
+    licenseNumber: string,
+    drivingLicenseExpiry: string,
+    email: string,
+    ghanaCard: string,
+    carId: string,
+    pickupDate: string,
+    returnTime: string,
+}
