@@ -9,4 +9,5 @@
   margin-top: 20px;
   background-color: light-dark(var(--martine-color-gray-1)),
     var(--martine-color-body);
+  gap: 15px;
 }

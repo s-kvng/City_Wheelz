@@ -1,11 +1,11 @@
 import { ghCurrency } from '@/contants'
 import { Card, Flex, Box, Title, Text, Image, Button, Divider } from '@mantine/core'
-import { IconManualGearbox, IconUsers } from '@tabler/icons-react'
+import {  IconEdit, IconManualGearbox, IconTrash, IconUsers } from '@tabler/icons-react'
 import React from 'react'
 
-const CarCard = () => {
+const AdminCarCard = () => {
   return (
-    <Card miw={{ base : '100%', lg:"40%"}}>
+    <Card miw={{ base : '100%', lg:"30%"}}>
         <Flex align="flex-end" justify="space-between">
             <Box>
                 <Title order={5}>Toyota Camry 2023</Title>
@@ -14,8 +14,8 @@ const CarCard = () => {
         </Flex>
         <Flex align="flex-end" justify="space-between">
             <Image
-            miw={{ base : 200 , md : 250}}
-            height="150px"
+            miw={{ base : 200 , md : 150}}
+            height="120px"
             radius="md"
             my={8}
             src={"/images/camry.png"}
@@ -27,10 +27,17 @@ const CarCard = () => {
                 rented
                 {/* Status renderer */}
               </Box>
-              
-              <Button variant='gradient' mb="xs">
-                Rent Now
+
+              <Box style={{ textAlign: "center" , display: "flex", flexDirection: "column"}} >
+
+              <Button variant='' mb="xs">
+                <IconEdit/>
               </Button>
+              
+              <Button variant='outline' color='red' mb="xs">
+                <IconTrash/>
+              </Button>
+              </Box>
             </Box>
         </Flex>
 
@@ -71,4 +78,4 @@ const CarCard = () => {
   )
 }
 
-export default CarCard
+export default AdminCarCard

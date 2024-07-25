@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../../globals.css";
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/carousel/styles.css';
 
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import Navbar from "@/components/shared/Navbar";
+
+import { AdminLayout } from "@/features/Admin/AdminLayout";
+// import { MantineLogo } from '@mantinex/mantine-logo';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +23,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
        <head>
@@ -27,8 +31,9 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <MantineProvider>
-          <Navbar/>
-          {children}
+            <AdminLayout>
+                {children}
+            </AdminLayout>
         </MantineProvider>
       </body>
     </html>
