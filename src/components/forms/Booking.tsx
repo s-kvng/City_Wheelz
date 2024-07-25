@@ -24,7 +24,7 @@ const Booking = (props : PaperProps) => {
       <Box px={"md"} py={"xl"}>
           <Paper className={classes.formPaper}  withBorder {...props}>
               <Text size='lg' fw={500}>
-                  Create Driver
+                  Create Booking
               </Text>
               
 
