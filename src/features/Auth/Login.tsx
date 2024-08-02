@@ -43,7 +43,7 @@ const Login = (props : PaperProps) => {
       setNotRegistered(false);
       setNotVerified(false);
       form.reset();
-      push('/');
+      push('/admin/dashboard');
       console.log("Login successful")
     }
    } catch (error) {
