@@ -26,7 +26,7 @@ const AdminDriverCard = ({driver}) => {
             <span>Address :</span> { driver.address}
           </Text>
           <Text size="sm" mt="sm">
-            <span>License No.</span> { driver.license}
+            <span>License No.</span> { driver.license_number}
           </Text>
           <Text size="sm" mt="sm">
             <span>Contact : </span> { driver.contact}
