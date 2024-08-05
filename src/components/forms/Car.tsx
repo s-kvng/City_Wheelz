@@ -1,17 +1,44 @@
 "use client"
 
-import {PaperProps,  Box, Button, Group, LoadingOverlay, Paper, Stack, TextInput, Text } from '@mantine/core'
+import {PaperProps,  Box, Button, Group, LoadingOverlay, Paper, Stack, TextInput, Text, FileInput, rem } from '@mantine/core'
 import  { useState } from 'react'
 
 import classes from './Style.module.css'
 import { useCreateCarForm } from '@/hooks/useCreateCarForm'
+import supabase from '@/config/superBaseClient'
+import { IconPhotoScan } from '@tabler/icons-react'
+import { v4 as uuidV4} from "uuid"
 
 const Car = (props : PaperProps) => {
-
+    const icon = <IconPhotoScan style={{ width: rem(18), height: rem(18) }} stroke={1.5} />;
     const [ isSubmitted , setIsSubmitted ] = useState<boolean>(false)
     const [ isSubmitting , setIsSubmitting ] = useState<boolean>(false)
+    const [imageValue, setImageValue] = useState<File | null>(null);
 
     const carForm = useCreateCarForm();
+
+
+    const uploadImage = async ()=>{
+    try {
+      const { data , error} = await supabase
+      .storage
+      .from("city-wheelz-media")
+      .upload(`admin/${uuidV4()}`, imageValue )
+
+      if(data){
+        console.log(data);
+        return data;
+      }
+      else{
+        console.log(error)
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+
+      
+    }
 
     const handleSignup = async () =>{
       const { make,
@@ -20,8 +47,39 @@ const Car = (props : PaperProps) => {
         description,
         color,
         transmission,
-        seatingCapacity,  
+        seatingCapacity,
+        fuelType,
+        pricePerDay,
+        isAvailable
+        
     } = carForm.values
+    
+    const imageData = await uploadImage();
+    setIsSubmitting(true)
+    try {
+      
+      const { data, error } = await supabase
+      .from('cars')
+      .insert([
+        { make: make, model: model , 
+          year: year , description: description, 
+          color: color , transmission: transmission, 
+          seats : seatingCapacity, price: pricePerDay , 
+          fuel_type: fuelType, imageSrc: `https://amtqrcpekkymvtwzuhph.supabase.co/storage/v1/object/public/${imageData.fullPath}`},
+      ])
+      .select()
+
+      if(data){
+        setIsSubmitted(true);
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }finally {
+      setIsSubmitting(false)
+      setIsSubmitted(false);
+      carForm.reset();
+    }
 
     }
 
@@ -123,6 +181,16 @@ const Car = (props : PaperProps) => {
                     value= {carForm.values.fuelType}
                     onChange={(event) => carForm.setFieldValue('fuelType', event.currentTarget.value)}
                     
+                  />
+
+                  <FileInput
+                  required
+                  leftSection={icon} 
+                  accept="image/png,image/jpeg" 
+                  label="Upload Image" 
+                  placeholder="Upload Image"
+                  leftSectionPointerEvents="none" 
+                  value={imageValue} onChange={setImageValue}
                   />
                   
                 </Stack>
