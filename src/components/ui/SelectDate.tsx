@@ -16,6 +16,8 @@ const SelectDate = ({label , placeholder, value , onChange , minDate}: props) =>
 
   return (
     <DateInput
+      
+      clearable
       value={value}
       onChange={onChange}
       label={label}

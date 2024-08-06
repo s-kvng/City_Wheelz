@@ -13,9 +13,7 @@ export const useCreateBookingForm = (): UseFormReturnType<IBooking> =>{
             drivingLicenseExpiry: "",
             email: "",
             ghanaCard: "",
-            carId: "",
-            pickupDate: "",
-            returnTime: "",
+            car: "",
         },
         validate:{
             email: (value: string) => 

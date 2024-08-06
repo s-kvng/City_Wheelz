@@ -1,21 +1,92 @@
 "use client"
 
-import {PaperProps,  Box, Button, Group, LoadingOverlay, Paper, Stack, TextInput, Text } from '@mantine/core'
+import {PaperProps,  Box, Button, Group, LoadingOverlay, Paper, Stack, TextInput, Text, FileInput } from '@mantine/core'
 import  { useState } from 'react'
+import { v4 as uuidV4 } from 'uuid'
 
-import { useCreateDriverForm } from '@/hooks/useCreateDriverForm'
 import classes from './Style.module.css'
 import SelectDate from '../ui/SelectDate'
+import supabase from '@/config/superBaseClient'
+import { useCreateBookingForm } from '@/hooks/useCreateBookingForm'
+import { IconPhotoScan } from '@tabler/icons-react'
 
 const Booking = (props : PaperProps) => {
 
+    const icon = <IconPhotoScan style={{ width: 24, height: 24 }} stroke={1.5} />;
     const [ isSubmitted , setIsSubmitted ] = useState<boolean>(false)
     const [ isSubmitting , setIsSubmitting ] = useState<boolean>(false)
+    const [ pickupDate , setPickupDate ] = useState<Date | null>(null)
+    const [ returnDate , setReturnDate ] = useState<Date | null>(null)
+    const [imageValue, setImageValue] = useState<File | null>(null);
 
-    const driverForm = useCreateDriverForm();
+    const bookingForm = useCreateBookingForm();
+
+
+    const uploadImage = async ()=>{
+      try {
+        const { data , error} = await supabase
+        .storage
+        .from("city-wheelz-media")
+        .upload(`booking/${uuidV4()}`, imageValue )
+  
+        if(data){
+          console.log(data);
+          return data;
+        }
+        else{
+          console.log(error)
+        }
+        
+      } catch (error) {
+        console.log(error);
+      }
+  
+        
+      }
 
     const handleSignup = async () =>{
-      const {email  } = driverForm.values
+      const {
+            firstname,
+            lastname,
+            phone,
+            address,
+            licenseNumber,
+            drivingLicenseExpiry,
+            email,
+            ghanaCard,
+            car,
+      } = bookingForm.values
+
+      console.log("submitting")
+
+        const imageData = await uploadImage();
+        setIsSubmitting(true)
+        try {
+          
+          const { data, error } = await supabase
+          .from('booking')
+          .insert([
+            { firstName: firstname, lastName: lastname , 
+              address: address , license_no: licenseNumber, 
+              contact: phone , email: email, 
+              ghCard : ghanaCard , car : car, pickup_date: pickupDate, return_date: returnDate,
+              imageUrl: `https://amtqrcpekkymvtwzuhph.supabase.co/storage/v1/object/public/${imageData.fullPath}`},
+          ])
+          .select()
+    
+          if(data){
+            setIsSubmitted(true);
+            console.log(data);
+          }
+        } catch (error) {
+          console.log(error);
+        }finally {
+          setIsSubmitting(false)
+          setIsSubmitted(false);
+          bookingForm.reset();
+          setPickupDate(null);
+          setReturnDate(null)
+        }
     }
 
   return (
@@ -28,15 +99,15 @@ const Booking = (props : PaperProps) => {
               </Text>
               
 
-              <form className='mt-4' onSubmit={driverForm.onSubmit(()=> handleSignup())}>
+              <form className='mt-4' onSubmit={bookingForm.onSubmit(()=> handleSignup())}>
                 <Stack>
                 <TextInput 
                     required 
                     label="First Name" 
                     placeholder="John Doe" 
                     radius={"md"}
-                    value= {driverForm.values.firstname}
-                    onChange={(event) => driverForm.setFieldValue('firstname', event.currentTarget.value)}
+                    value= {bookingForm.values.firstname}
+                    onChange={(event) => bookingForm.setFieldValue('firstname', event.currentTarget.value)}
                     
                   />
 
@@ -45,8 +116,8 @@ const Booking = (props : PaperProps) => {
                     label="Last Name" 
                     placeholder="Doe" 
                     radius={"md"}
-                    value= {driverForm.values.lastname}
-                    onChange={(event) => driverForm.setFieldValue('lastname', event.currentTarget.value)}
+                    value= {bookingForm.values.lastname}
+                    onChange={(event) => bookingForm.setFieldValue('lastname', event.currentTarget.value)}
                     
                   />
 
@@ -55,8 +126,8 @@ const Booking = (props : PaperProps) => {
                     label="Address" 
                     placeholder="EN-111-***" 
                     radius={"md"}
-                    value= {driverForm.values.address}
-                    onChange={(event) => driverForm.setFieldValue('address', event.currentTarget.value)}
+                    value= {bookingForm.values.address}
+                    onChange={(event) => bookingForm.setFieldValue('address', event.currentTarget.value)}
                     
                   />
 
@@ -65,8 +136,8 @@ const Booking = (props : PaperProps) => {
                     label="License Number" 
                     placeholder="******" 
                     radius={"md"}
-                    value= {driverForm.values.licenseNumber}
-                    onChange={(event) => driverForm.setFieldValue('licenseNumber', event.currentTarget.value)}
+                    value= {bookingForm.values.licenseNumber}
+                    onChange={(event) => bookingForm.setFieldValue('licenseNumber', event.currentTarget.value)}
                     
                   />
 
@@ -75,8 +146,8 @@ const Booking = (props : PaperProps) => {
                     label="Phone Number" 
                     placeholder="+1 123 456 7890" 
                     radius={"md"}
-                    value= {driverForm.values.phone}
-                    onChange={(event) => driverForm.setFieldValue('phone', event.currentTarget.value)}
+                    value= {bookingForm.values.phone}
+                    onChange={(event) => bookingForm.setFieldValue('phone', event.currentTarget.value)}
                     />
 
                     
@@ -85,9 +156,9 @@ const Booking = (props : PaperProps) => {
                     label="Email" 
                     placeholder="cargo@gmail.com" 
                     radius={"md"}
-                    value= {driverForm.values.email}
-                    onChange={(event) => driverForm.setFieldValue('email', event.currentTarget.value)}
-                    error={driverForm.errors.email && driverForm.errors.email }
+                    value= {bookingForm.values.email}
+                    onChange={(event) => bookingForm.setFieldValue('email', event.currentTarget.value)}
+                    error={bookingForm.errors.email && bookingForm.errors.email }
                   />
 
                   <TextInput 
@@ -95,18 +166,38 @@ const Booking = (props : PaperProps) => {
                     label="Ghana Card No." 
                     placeholder="GHA-**********" 
                     radius={"md"}
-                    value= {driverForm.values.ghanaCard}
-                    onChange={(event) => driverForm.setFieldValue('ghanaCard', event.currentTarget.value)}
+                    value= {bookingForm.values.ghanaCard}
+                    onChange={(event) => bookingForm.setFieldValue('ghanaCard', event.currentTarget.value)}
+                    error={bookingForm.errors.ghanaCard && bookingForm.errors.ghanaCard }
+                  />
+
+                    <TextInput 
+                    required 
+                    label="Car (name-color)" 
+                    placeholder="eg:ford-red" 
+                    radius={"md"}
+                    value= {bookingForm.values.car}
+                    onChange={(event) => bookingForm.setFieldValue('car', event.currentTarget.value)}
                     
                   />
 
                   <div>
-                    <SelectDate label="Pickup Date"/>
+                    <SelectDate label="Pickup Date" value={pickupDate} onChange={setPickupDate} minDate={new Date()}/>
                   </div>
 
                   <div>
-                    <SelectDate label="Return Date"/>
+                    <SelectDate label="Return Date" value={returnDate} onChange={setReturnDate} minDate={new Date()}/>
                   </div>
+
+                  <FileInput
+                  required
+                  leftSection={icon} 
+                  accept="image/png,image/jpeg" 
+                  label="Upload Image" 
+                  placeholder="Upload Image"
+                  leftSectionPointerEvents="none" 
+                  value={imageValue} onChange={setImageValue}
+                  />
                   
                 </Stack>
 
