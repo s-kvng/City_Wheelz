@@ -38,7 +38,7 @@ const CarList = () => {
         <Grid  justify="space-around" px={"md"}>
       { errors && <p>{errors}</p>}
        { cars && cars.map((car) => (
-         <Grid.Col key={car.id} span={6}>
+         <Grid.Col key={car.id} span={{ base: 12, md: 6, lg: 6 }}>
             <CarCard car={car}/>
          </Grid.Col>
        ))}

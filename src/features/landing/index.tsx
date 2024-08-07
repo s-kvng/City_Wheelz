@@ -14,7 +14,7 @@ const Landing = () => {
   return (
     <>
     <Hero/>
-    <Box  px={"13rem"} mb="3rem">
+    <Box  px={{ base: "1rem", md: "10rem", lg: "13rem" }} mb="3rem">
       <CarList/>
     </Box>
     <DividerUi  label="Request a Driver"/>

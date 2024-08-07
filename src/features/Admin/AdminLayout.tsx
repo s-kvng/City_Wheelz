@@ -46,6 +46,12 @@ const links = [
         exact: false,
       },
       {
+        label: 'Booking Cards',
+        href: '/admin/bookings',
+        icon: <IconClipboardList size={"1rem"} stroke={1.5} /> ,
+        exact: false,
+      },
+      {
         label: 'Settings',
         href: '/admin/settings',
         icon: <IconSettingsCheck  size={"1rem"} stroke={1.5}/>,
@@ -65,7 +71,7 @@ export function AdminLayout({ children}) {
       header={{ height: 60 }}
       footer={{ height: 60 }}
       navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: false } }}
-      aside={{ width: 300, breakpoint: 'md', collapsed: { desktop: false, mobile: true } }}
+      aside={{ width: 100, breakpoint: 'md', collapsed: { desktop: false, mobile: true } }}
       padding="md"
     >
       <AppShell.Header>
