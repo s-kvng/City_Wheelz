@@ -2,7 +2,7 @@ import { Card, Group , Text , Avatar , Stack, Anchor, Button} from '@mantine/cor
 import { IconDownload, IconEdit, IconTrash, IconUserPlus } from '@tabler/icons-react'
 import React from 'react'
 
-const AdminDriverCard = ({booking}) => {
+const AdminDriverCard = ({booking, deleteFn}) => {
   return (
     <Card  shadow="sm" padding="lg" radius="md" withBorder>
         <Group>
@@ -52,7 +52,7 @@ const AdminDriverCard = ({booking}) => {
             </div>
 
               
-              <Button variant='outline' color='red' mb="xs">
+              <Button onClick={()=>deleteFn(booking.id)} variant='outline' color='red' mb="xs">
                 <IconTrash/>
               </Button>
           </Group>
