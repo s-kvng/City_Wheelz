@@ -1,9 +1,13 @@
+import supabase from '@/config/superBaseClient'
 import { ghCurrency } from '@/contants'
 import { Card, Flex, Box, Title, Text, Image, Button, Divider } from '@mantine/core'
 import {  IconEdit, IconManualGearbox, IconTrash, IconUsers } from '@tabler/icons-react'
 import React from 'react'
 
-const AdminCarCard = ({car}) => {
+const AdminCarCard = ({car, deleteFn }) => {
+
+
+  
   return (
     <Card miw={{ base : '100%', lg:"30%"}}>
         <Flex align="flex-end" justify="space-between">
@@ -34,7 +38,7 @@ const AdminCarCard = ({car}) => {
                 <IconEdit/>
               </Button>
               
-              <Button variant='outline' color='red' mb="xs">
+              <Button onClick={()=>deleteFn(car.id)} variant='outline' color='red' mb="xs">
                 <IconTrash/>
               </Button>
               </Box>
