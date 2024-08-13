@@ -13,7 +13,7 @@ import {
   Modal,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconDownload, IconUserPlus } from "@tabler/icons-react";
+import { IconDownload, IconUserPlus, IconScript } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
 const DriverCard = ({ driver }) => {
@@ -71,7 +71,7 @@ const DriverCard = ({ driver }) => {
           Our Dependable Driver
         </Text>
 
-        <Group mt="md" gap="xl">
+        <Group mt="md" gap="lg">
           <Text size="sm">
             <b> {reviews ? reviews.length : 0} </b> Reviews
           </Text>
@@ -79,8 +79,8 @@ const DriverCard = ({ driver }) => {
             Add Review
           </Button>
 
-          <Button onClick={open} rightSection={<IconUserPlus size={14} />}>
-            View Review
+          <Button onClick={open} rightSection={<IconScript size={14} />}>
+            View Reviews
           </Button>
         </Group>
       </Card>
