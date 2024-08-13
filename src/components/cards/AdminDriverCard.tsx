@@ -2,14 +2,14 @@ import { Card, Group , Text , Avatar , Stack, Anchor, Button} from '@mantine/cor
 import { IconDownload, IconEdit, IconTrash, IconUserPlus } from '@tabler/icons-react'
 import React from 'react'
 
-const AdminDriverCard = () => {
+const AdminDriverCard = ({driver, deleteFn}) => {
   return (
     <Card  shadow="sm" padding="lg" radius="md" withBorder>
         <Group>
-            <Avatar src="https://avatars.githubusercontent.com/u/79146003?s=200&v=4" radius="xl" />
+            <Avatar src={driver.imageSrc1} radius="xl" />
             <Stack gap={5}>
               <Text size="sm" fw={700} style={{ lineHeight: 1 }}>
-                Mantine
+                {driver.firstName} { driver.lastName}
               </Text>
               <Anchor
                 href="https://twitter.com/mantinedev"
@@ -17,14 +17,22 @@ const AdminDriverCard = () => {
                 size="xs"
                 style={{ lineHeight: 1 }}
               >
-                @mantinedev
+                {driver.email}
               </Anchor>
             </Stack>
         </Group>
 
           <Text size="sm" mt="md">
-            Customizable React components and hooks library with focus on usability, accessibility
-            and developer experience
+            <span>Address :</span> { driver.address}
+          </Text>
+          <Text size="sm" mt="sm">
+            <span>License No.</span> { driver.license_number}
+          </Text>
+          <Text size="sm" mt="sm">
+            <span>Contact : </span> { driver.contact}
+          </Text>
+          <Text size="sm" mt="md">
+            <span>Ghana Card : </span> { driver.ghCard}
           </Text>
 
           <Group mt="md" gap="xl">
@@ -36,7 +44,7 @@ const AdminDriverCard = () => {
                 <IconEdit/>
               </Button>
               
-              <Button variant='outline' color='red' mb="xs">
+              <Button onClick={()=>deleteFn(driver.id)} variant='outline' color='red' mb="xs">
                 <IconTrash/>
               </Button>
           </Group>

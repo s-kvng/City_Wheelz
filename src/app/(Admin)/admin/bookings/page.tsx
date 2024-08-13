@@ -1,67 +1,67 @@
 "use client"
 
-import AdminDriverCard from '@/components/cards/AdminDriverCard'
+import AdminBookingCard from '@/components/cards/AdminBookingCard'
 import supabase from '@/config/superBaseClient'
 import { Grid , Notification} from '@mantine/core'
 import { useState , useEffect} from 'react'
 
-const Drivers = () => {
+const Bookings = () => {
 
-  const [drivers, setDrivers] = useState(null)
+  const [bookings, setBookings] = useState(null)
   const [ errors, setErrors] = useState(null)
   const [ onSuccess , setOnSuccess] = useState(false)
 
   useEffect(() => {
-    const fetchDrivers = async () =>{
+    const fetchBookings = async () =>{
       
       let { data, error } = await supabase
-      .from('drivers')
+      .from('booking')
       .select('*')
         
 
       if(error) {
         console.error(error)
         setErrors("Could not fetch cars")
-        setDrivers(null)
+        setBookings(null)
         return  // Abort the function if the request fails.
       }
 
       if(data){
-        setDrivers(data)
+        setBookings(data)
         setErrors(null)
         console.log(data)
       }
     }
 
-    fetchDrivers()
+    fetchBookings()
   }, [])
 
-  const handleDelete = async  (driverId) =>{
+  const handleDelete = async  (bookingId) =>{
     // Delete driver logic here
     // Update the state to remove the deleted driver
     try {
 
        // Call the API to delete the car from the database
       const { error } = await supabase
-      .from('drivers')
+      .from('booking')
       .delete()
-      .eq('id', driverId)
+      .eq('id', bookingId)
 
     // Display a success message or error message based on the API response
     if(!error){
       setOnSuccess(true)
-      const updatedDrivers = drivers?.filter((d) => d.id!== driverId)
-      setDrivers(updatedDrivers)
-      console.log("Driver deleted successfully")
+      const updatedBookings = bookings?.filter((b) => b.id!== bookingId)
+      setBookings(updatedBookings)
+      console.log("Bookings deleted successfully")
     }
 
     if(error){
       console.error(error)
-      setErrors("Could not delete car")
+      setErrors("Could not delete booking")
     }
     } catch (error) {
       console.error(error)
-      setErrors("Failed to delete car")
+      setErrors("Failed to delete booking")
     }finally {
       setErrors(null)
     }
@@ -74,27 +74,20 @@ const Drivers = () => {
   }
   return (
     <>
-      { onSuccess && 
-        <Notification onClose={onCloseNotification} withBorder title="Success">
-          Driver Sucessfully deleted
-        </Notification>
-    }
-
+         { onSuccess && 
+          <Notification onClose={onCloseNotification} withBorder title="Success">
+            Booking Sucessfully deleted
+          </Notification>
+        }
          <Grid  justify="space-around" px={"md"}>
-           { drivers && drivers.map((driver) => (
-             <Grid.Col span={6}>
-                <AdminDriverCard driver={driver} deleteFn={handleDelete}/>
+           { bookings && bookings.map((booking) => (
+             <Grid.Col key={booking.id} span={6}>
+                <AdminBookingCard booking={booking} deleteFn={handleDelete}/>
              </Grid.Col>
             ))}
-            {/* <Grid.Col span={6}>
-                <AdminDriverCard driver={{}}/>
-            </Grid.Col>
-            <Grid.Col span={6}>
-                <AdminDriverCard driver={{}}/>
-            </Grid.Col> */}
         </Grid>
     </>
   )
 }
 
-export default Drivers
+export default Bookings

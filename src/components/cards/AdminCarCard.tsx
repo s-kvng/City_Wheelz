@@ -1,15 +1,19 @@
+import supabase from '@/config/superBaseClient'
 import { ghCurrency } from '@/contants'
 import { Card, Flex, Box, Title, Text, Image, Button, Divider } from '@mantine/core'
 import {  IconEdit, IconManualGearbox, IconTrash, IconUsers } from '@tabler/icons-react'
 import React from 'react'
 
-const AdminCarCard = () => {
+const AdminCarCard = ({car, deleteFn }) => {
+
+
+  
   return (
     <Card miw={{ base : '100%', lg:"30%"}}>
         <Flex align="flex-end" justify="space-between">
             <Box>
-                <Title order={5}>Toyota Camry 2023</Title>
-                <Text c="gray.6">Sedan</Text>
+                <Title order={5}>{ car.model} {car.year}</Title>
+                <Text c="gray.6">{car.make}</Text>
             </Box>
         </Flex>
         <Flex align="flex-end" justify="space-between">
@@ -18,7 +22,7 @@ const AdminCarCard = () => {
             height="120px"
             radius="md"
             my={8}
-            src={"/images/camry.png"}
+            src={car.imageSrc}
             alt='Toyota Camry'
             />
 
@@ -34,7 +38,7 @@ const AdminCarCard = () => {
                 <IconEdit/>
               </Button>
               
-              <Button variant='outline' color='red' mb="xs">
+              <Button onClick={()=>deleteFn(car.id)} variant='outline' color='red' mb="xs">
                 <IconTrash/>
               </Button>
               </Box>
@@ -48,20 +52,20 @@ const AdminCarCard = () => {
             <Flex my={8} align="center" title="seating capacity">
               <IconUsers size="16px" color='gray'/>
               <Text c="gray.6" size='sm' mx={4}>
-                {5}
+                {car.seats}
               </Text>
             </Flex>
 
             <Flex my={8} align="center" title='transmission'>
               <IconManualGearbox size="16px" color='gray'/>
               <Text c="gray.6" size='sm' mx={4}>
-                {"Automatic"}
+                {car.transmission}
               </Text>
             </Flex>
             <Flex>
               {/* <BsFuelPump size="16px" color="gray"/> */}
               <Text c="gray.6" size='sm' mx={4}>
-                {"Gasoline"}
+                {car.fuel_type}
               </Text>
             </Flex>
           </Flex>
@@ -69,7 +73,7 @@ const AdminCarCard = () => {
           <Flex align="flex-end">
             <Text fw="bold" size='lg'>
               { ghCurrency}
-              {300}
+              { car.price}
             </Text>
             <Text size='xs'>/day</Text>            
           </Flex>

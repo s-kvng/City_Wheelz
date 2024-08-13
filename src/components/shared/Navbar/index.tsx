@@ -18,9 +18,9 @@ const Navbar = () => {
             <Box visibleFrom='sm'>
                 <ThemeSwitcher/>
             </Box>
-            <Box visibleFrom='md'>
+            {/* <Box visibleFrom='md'>
                 <AuthButtons/>
-            </Box>
+            </Box> */}
         </div>
 
         <Box hiddenFrom='md'>

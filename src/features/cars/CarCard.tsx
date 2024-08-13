@@ -3,13 +3,13 @@ import { Card, Flex, Box, Title, Text, Image, Button, Divider } from '@mantine/c
 import { IconManualGearbox, IconUsers } from '@tabler/icons-react'
 import React from 'react'
 
-const CarCard = () => {
+const CarCard = ({car}) => {
   return (
     <Card miw={{ base : '100%', lg:"40%"}}>
         <Flex align="flex-end" justify="space-between">
             <Box>
-                <Title order={5}>Toyota Camry 2023</Title>
-                <Text c="gray.6">Sedan</Text>
+                <Title order={5}>{ car.model} {car.year}</Title>
+                <Text c="gray.6">{car.make}</Text>
             </Box>
         </Flex>
         <Flex align="flex-end" justify="space-between">
@@ -18,8 +18,8 @@ const CarCard = () => {
             height="150px"
             radius="md"
             my={8}
-            src={"/images/camry.png"}
-            alt='Toyota Camry'
+            src={car.imageSrc}
+            alt={car.model}
             />
 
             <Box>
@@ -41,20 +41,20 @@ const CarCard = () => {
             <Flex my={8} align="center" title="seating capacity">
               <IconUsers size="16px" color='gray'/>
               <Text c="gray.6" size='sm' mx={4}>
-                {5}
+              {car.seats}
               </Text>
             </Flex>
 
             <Flex my={8} align="center" title='transmission'>
               <IconManualGearbox size="16px" color='gray'/>
               <Text c="gray.6" size='sm' mx={4}>
-                {"Automatic"}
+              {car.transmission}
               </Text>
             </Flex>
             <Flex>
               {/* <BsFuelPump size="16px" color="gray"/> */}
               <Text c="gray.6" size='sm' mx={4}>
-                {"Gasoline"}
+              {car.fuel_type}
               </Text>
             </Flex>
           </Flex>
@@ -62,7 +62,7 @@ const CarCard = () => {
           <Flex align="flex-end">
             <Text fw="bold" size='lg'>
               { ghCurrency}
-              {300}
+              { car.price}
             </Text>
             <Text size='xs'>/day</Text>            
           </Flex>

@@ -40,7 +40,6 @@ export interface IBooking{
     drivingLicenseExpiry: string,
     email: string,
     ghanaCard: string,
-    carId: string,
-    pickupDate: string,
-    returnTime: string,
+    car: string,
+
 }

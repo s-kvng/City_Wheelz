@@ -1,20 +1,83 @@
 "use client"
 
-import {PaperProps,  Box, Button, Group, LoadingOverlay, Paper, Stack, TextInput, Text } from '@mantine/core'
+import {PaperProps,  Box, Button, Group, LoadingOverlay, Paper, Stack, TextInput, Text, FileInput, rem } from '@mantine/core'
 import  { useState } from 'react'
 
 import { useCreateDriverForm } from '@/hooks/useCreateDriverForm'
 import classes from './Style.module.css'
+import { IconPhotoScan } from '@tabler/icons-react'
+import supabase from '@/config/superBaseClient'
+import { v4 as uuidV4} from "uuid"
 
 const Driver = (props : PaperProps) => {
-
+    const icon = <IconPhotoScan style={{ width: rem(18), height: rem(18) }} stroke={1.5} />;
     const [ isSubmitted , setIsSubmitted ] = useState<boolean>(false)
     const [ isSubmitting , setIsSubmitting ] = useState<boolean>(false)
+    const [imageValue, setImageValue] = useState<File | null>(null);
 
     const driverForm = useCreateDriverForm();
 
+    const uploadImage = async ()=>{
+      try {
+        const { data , error} = await supabase
+        .storage
+        .from("city-wheelz-media")
+        .upload(`driver/${uuidV4()}`, imageValue )
+  
+        if(data){
+          console.log(data);
+          return data;
+        }
+        else{
+          console.log(error)
+        }
+        
+      } catch (error) {
+        console.log(error);
+      }
+  
+        
+      }
+
     const handleSignup = async () =>{
-      const {email  } = driverForm.values
+      const { firstname, 
+        lastname,
+        phone,
+        address,
+        licenseNumber,
+        drivingLicenseExpiry,
+        email,
+        ghanaCard } = driverForm.values
+
+        console.log("submitting")
+
+        const imageData = await uploadImage();
+        setIsSubmitting(true)
+        try {
+          
+          const { data, error } = await supabase
+          .from('drivers')
+          .insert([
+            { firstName: firstname, lastName: lastname , 
+              address: address , license_number: licenseNumber, 
+              contact: phone , email: email, 
+              ghCard : ghanaCard , 
+              imageSrc1: `https://amtqrcpekkymvtwzuhph.supabase.co/storage/v1/object/public/${imageData.fullPath}`},
+          ])
+          .select()
+    
+          if(data){
+            setIsSubmitted(true);
+            console.log(data);
+          }
+        } catch (error) {
+          console.log(error);
+        }finally {
+          setIsSubmitting(false)
+          setIsSubmitted(false);
+          driverForm.reset();
+        }
+
     }
 
   return (
@@ -96,7 +159,17 @@ const Driver = (props : PaperProps) => {
                     radius={"md"}
                     value= {driverForm.values.ghanaCard}
                     onChange={(event) => driverForm.setFieldValue('ghanaCard', event.currentTarget.value)}
-                    
+                    error={driverForm.errors.ghanaCard && driverForm.errors.ghanaCard}
+                  />
+
+                  <FileInput
+                  required
+                  leftSection={icon} 
+                  accept="image/png,image/jpeg" 
+                  label="Upload Image" 
+                  placeholder="Upload Image"
+                  leftSectionPointerEvents="none" 
+                  value={imageValue} onChange={setImageValue}
                   />
                   
                 </Stack>

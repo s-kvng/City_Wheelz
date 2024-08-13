@@ -9,9 +9,9 @@ const Hero = () => {
     <Box className={classes.box} pos={"relative"} h={450} >
         <Slider/>
 
-        <Center w={"100%"} pb="4rem" pos={"absolute"} bottom={{ base : -150 , sm: 0}} >
+        {/* <Center w={"100%"} pb="4rem" pos={"absolute"} bottom={{ base : -150 , sm: 0}} >
             <SearchEngine/>
-        </Center>
+        </Center> */}
     </Box>
   )
 }
