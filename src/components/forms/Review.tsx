@@ -13,6 +13,7 @@ import {
   FileInput,
   rem,
   Textarea,
+  Rating,
 } from "@mantine/core";
 import { useState } from "react";
 
@@ -32,7 +33,7 @@ const Review = (props: ReviewProps) => {
   );
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [imageValue, setImageValue] = useState<File | null>(null);
+  const [value, setValue] = useState(1);
 
   const reviewForm = useCreateReviewForm();
 
@@ -50,6 +51,7 @@ const Review = (props: ReviewProps) => {
             name: name,
             content: content,
             driver: props.driverId,
+            rating: value,
           },
         ])
         .select();
@@ -108,6 +110,8 @@ const Review = (props: ReviewProps) => {
                   reviewForm.setFieldValue("content", event.currentTarget.value)
                 }
               />
+
+              <Rating value={value} onChange={setValue} />
             </Stack>
 
             <Group justify="space-between" mt="xl">
