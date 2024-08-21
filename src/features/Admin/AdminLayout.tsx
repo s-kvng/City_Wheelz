@@ -57,6 +57,12 @@ const links = [
     icon: <IconClipboardList size={"1rem"} stroke={1.5} />,
     exact: false,
   },
+  {
+    label: "Review Cards",
+    href: "/admin/reviews",
+    icon: <IconClipboardList size={"1rem"} stroke={1.5} />,
+    exact: false,
+  },
   // {
   //   label: 'Settings',
   //   href: '/admin/settings',
