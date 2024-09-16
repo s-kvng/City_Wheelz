@@ -1,12 +1,16 @@
-import Login from '@/features/Auth/Login'
-import React from 'react'
+import Login from "@/features/Auth/Login";
+import React from "react";
+
+import { UserSessionContextProvider } from "@/context/UserSessionContext";
 
 const LoginPage = () => {
   return (
-    <div>
-      <Login/>
-    </div>
-  )
-}
+    <UserSessionContextProvider>
+      <div>
+        <Login />
+      </div>
+    </UserSessionContextProvider>
+  );
+};
 
-export default LoginPage
+export default LoginPage;

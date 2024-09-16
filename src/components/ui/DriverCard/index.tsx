@@ -1,5 +1,6 @@
 "use client";
 
+import ReviewCard from "@/components/cards/ReviewCard";
 import Review from "@/components/forms/Review";
 import supabase from "@/config/superBaseClient";
 import {
@@ -18,6 +19,8 @@ import { useEffect, useState } from "react";
 
 const DriverCard = ({ driver }) => {
   const [opened, { open, close }] = useDisclosure(false);
+  const [isOpened, { open: viewReview, close: closeReview }] =
+    useDisclosure(false);
   const [errors, setErrors] = useState(null);
   const [reviews, setReviews] = useState(null);
   console.log(driver);
@@ -79,7 +82,7 @@ const DriverCard = ({ driver }) => {
             Add Review
           </Button>
 
-          <Button onClick={open} rightSection={<IconScript size={14} />}>
+          <Button onClick={viewReview} rightSection={<IconScript size={14} />}>
             View Reviews
           </Button>
         </Group>
@@ -87,6 +90,11 @@ const DriverCard = ({ driver }) => {
 
       <Modal opened={opened} onClose={close} title="Add Review">
         <Review driverId={driver.id} />
+      </Modal>
+
+      {/* modal for viewing reviews */}
+      <Modal opened={isOpened} onClose={closeReview} title="View Review">
+        {reviews && reviews.map((review) => <ReviewCard review={review} />)}
       </Modal>
     </>
   );
