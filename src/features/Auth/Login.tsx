@@ -16,6 +16,7 @@ import {
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 import DividerUi from "@/components/ui/DividerUi";
 import classes from "./Style.module.css";
@@ -40,21 +41,35 @@ const Login = (props: PaperProps) => {
     setIsSubmitting(true);
     try {
       const { error, data } = await loginWithEmailPassword(email, password);
-
+      console.log("user -> ", data.user);
       if (error && error.message === errorMessage) {
         console.log(error);
+        toast.error("Failed to login, please check your credentials.", {
+          position: "top-center",
+        });
         setNotRegistered(true);
       } else if (data.user == null || data.session == null) {
         setNotVerified(true);
+        toast.error(
+          "Failed to verify your account, please verify your email.",
+          {
+            position: "top-center",
+          }
+        );
       } else {
         setNotRegistered(false);
         setNotVerified(false);
         form.reset();
         push("/admin/dashboard");
-        console.log("Login successful");
+        toast.success("Login successful, redirecting to dashboard...", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       console.log(error);
+      toast.error("Failed to login, please check your credentials.", {
+        position: "top-center",
+      });
     } finally {
       setIsSubmitting(false);
     }

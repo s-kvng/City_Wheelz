@@ -11,8 +11,12 @@ import {
   IconCarGarage,
   IconClipboardList,
 } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
 // import { useDisclosure } from '@mantine/hooks';
 // import { MantineLogo } from '@mantinex/mantine-logo';
+import ProfileMenu from "./ProfileMenu";
+import { useUserSessionContext } from "@/context/UserSessionContext";
+import { useEffect } from "react";
 
 const links = [
   {
@@ -72,7 +76,21 @@ const links = [
 ];
 
 export function AdminLayout({ children }) {
+  const router = useRouter();
   //   const [opened, { toggle }] = useDisclosure();
+  const { user, session, loading, isLoggedIn } = useUserSessionContext();
+
+  if (loading) {
+    return <Skeleton width="100%" height="100vh" />;
+  }
+
+  // useEffect(() => {
+  //   console.log(loading, " ", isLoggedIn);
+  //   if (!loading && isLoggedIn) {
+  //     router.replace("/login");
+  //     return;
+  //   }
+  // }, []);
 
   return (
     <AppShell
@@ -94,9 +112,7 @@ export function AdminLayout({ children }) {
             City Wheelz
           </Text>
 
-          <Text mb={"0.1rem"} size="lg" fw={500}>
-            City Wheelz
-          </Text>
+          <ProfileMenu />
           {/* <MantineLogo size={30} /> */}
         </Group>
       </AppShell.Header>

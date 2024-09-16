@@ -6,6 +6,7 @@ import "@mantine/dates/styles.css";
 import "@mantine/carousel/styles.css";
 
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { ToastContainer } from "react-toastify";
 import Navbar from "@/components/shared/Navbar";
 import { UserSessionContextProvider } from "@/context/UserSessionContext";
 
@@ -28,10 +29,9 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <MantineProvider>
-          <UserSessionContextProvider>
-            <Navbar />
-            {children}
-          </UserSessionContextProvider>
+          <Navbar />
+          {children}
+          <ToastContainer autoClose={8000} />
         </MantineProvider>
       </body>
     </html>

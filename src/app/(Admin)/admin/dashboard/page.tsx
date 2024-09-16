@@ -27,17 +27,23 @@ const list = [
 ];
 
 const Dashboard = () => {
-  const { session, user } = useUserSessionContext();
+  const { session, user, loading } = useUserSessionContext();
   console.log(session);
   console.log(user);
   return (
     <>
-      <Text mb={"0.1rem"} size="lg" fw={500}>
-        {session ? " Welcome Admin" : "Not Admin"}
-      </Text>
-      <Text mb={"0.3rem"} size="sm" fw={200}>
-        @{user?.email}
-      </Text>
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <>
+          <Text mb={"0.1rem"} size="lg" fw={500}>
+            {session ? " Welcome Admin" : "Not Admin"}
+          </Text>
+          <Text mb={"0.3rem"} size="sm" fw={200}>
+            @{user?.email}
+          </Text>
+        </>
+      )}
 
       <DividerUi label="Display Data" />
 
