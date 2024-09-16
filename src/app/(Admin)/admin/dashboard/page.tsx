@@ -3,7 +3,7 @@
 import DashboardCard from "@/components/cards/DashboardCard";
 import DividerUi from "@/components/ui/DividerUi";
 import { Divider, Grid, Text } from "@mantine/core";
-import React from "react";
+import { useUserSessionContext } from "@/context/UserSessionContext";
 
 const list = [
   {
@@ -27,10 +27,16 @@ const list = [
 ];
 
 const Dashboard = () => {
+  const { session, user } = useUserSessionContext();
+  console.log(session);
+  console.log(user);
   return (
     <>
-      <Text mb={"1rem"} size="lg" fw={500}>
-        Welcome Admin
+      <Text mb={"0.1rem"} size="lg" fw={500}>
+        {session ? " Welcome Admin" : "Not Admin"}
+      </Text>
+      <Text mb={"0.3rem"} size="sm" fw={200}>
+        @{user?.email}
       </Text>
 
       <DividerUi label="Display Data" />

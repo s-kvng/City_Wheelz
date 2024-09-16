@@ -88,9 +88,15 @@ export function AdminLayout({ children }) {
       padding="md"
     >
       <AppShell.Header>
-        <Group h="100%" px="md">
+        <Group h="100%" px="md" justify="space-between">
           {/* <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" /> */}
-          city wheelz
+          <Text mb={"0.1rem"} size="lg" fw={500}>
+            City Wheelz
+          </Text>
+
+          <Text mb={"0.1rem"} size="lg" fw={500}>
+            City Wheelz
+          </Text>
           {/* <MantineLogo size={30} /> */}
         </Group>
       </AppShell.Header>
