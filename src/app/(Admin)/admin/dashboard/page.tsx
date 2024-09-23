@@ -8,19 +8,19 @@ import { useUserSessionContext } from "@/context/UserSessionContext";
 const list = [
   {
     title: "Cars In Stock",
-    value: 40,
+    value: 4,
     icon: "LineChartIcon",
     color: "primary",
   },
   {
     title: "Drivers",
-    value: 10,
+    value: 3,
     icon: "LineChartIcon",
     color: "primary",
   },
   {
     title: "Total Bookings",
-    value: 20,
+    value: 2,
     icon: "LineChartIcon",
     color: "primary",
   },

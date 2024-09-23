@@ -109,7 +109,7 @@ export function AdminLayout({ children }) {
         <Group h="100%" px="md" justify="space-between">
           {/* <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" /> */}
           <Text mb={"0.1rem"} size="lg" fw={500}>
-            City Wheelz
+            Simple Wheelz
           </Text>
 
           <ProfileMenu />
