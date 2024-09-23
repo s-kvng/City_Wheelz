@@ -60,6 +60,7 @@ const Booking = (props: PaperProps) => {
       email,
       ghanaCard,
       car,
+      price,
     } = bookingForm.values;
 
     console.log("submitting");
@@ -81,6 +82,7 @@ const Booking = (props: PaperProps) => {
             car: car,
             pickup_date: pickupDate,
             return_date: returnDate,
+            price: price,
             imageUrl: `https://amtqrcpekkymvtwzuhph.supabase.co/storage/v1/object/public/${imageData.fullPath}`,
           },
         ])
@@ -89,13 +91,13 @@ const Booking = (props: PaperProps) => {
       if (data) {
         setIsSubmitted(true);
         console.log(data);
-        toast.success("New car uploaded Successfully", {
+        toast.success("New Booking uploaded Successfully", {
           position: "top-center",
         });
       }
     } catch (error) {
       console.log(error);
-      toast.error("Failed to upload new car", {
+      toast.error("Failed to upload new booking", {
         position: "top-center",
       });
     } finally {
@@ -249,6 +251,17 @@ const Booking = (props: PaperProps) => {
                   minDate={new Date()}
                 />
               </div>
+
+              <TextInput
+                required
+                label="Price"
+                placeholder="₵300"
+                radius={"md"}
+                value={bookingForm.values.price}
+                onChange={(event) =>
+                  bookingForm.setFieldValue("price", event.currentTarget.value)
+                }
+              />
 
               <FileInput
                 required

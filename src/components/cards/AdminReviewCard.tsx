@@ -17,6 +17,7 @@ import {
 import React from "react";
 
 const AdminReviewCard = ({ review, deleteFn }) => {
+  console.log(review);
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Group>
