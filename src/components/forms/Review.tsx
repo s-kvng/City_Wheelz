@@ -22,7 +22,6 @@ import classes from "./Style.module.css";
 import { IconPhotoScan } from "@tabler/icons-react";
 import supabase from "@/config/superBaseClient";
 import { v4 as uuidV4 } from "uuid";
-import { toast } from "react-toastify";
 
 interface ReviewProps extends PaperProps {
   driverId: string;
@@ -59,9 +58,6 @@ const Review = (props: ReviewProps) => {
 
       if (data) {
         setIsSubmitted(true);
-        toast.success("New Review uploaded Successfully", {
-          position: "top-center",
-        });
         console.log(data);
       }
     } catch (error) {

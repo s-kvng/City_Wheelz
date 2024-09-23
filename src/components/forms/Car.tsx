@@ -225,7 +225,7 @@ const Car = (props: PaperProps) => {
               <TextInput
                 required
                 label="Fuel Type"
-                placeholder="eg. Disel"
+                placeholder="5"
                 radius={"md"}
                 value={carForm.values.fuelType}
                 onChange={(event) =>

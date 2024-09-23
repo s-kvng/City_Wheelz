@@ -1,5 +1,6 @@
 "use client";
 
+import AdminBookingCard from "@/components/cards/AdminBookingCard";
 import AdminReviewCard from "@/components/cards/AdminReviewCard";
 import supabase from "@/config/superBaseClient";
 import { Grid, Notification } from "@mantine/core";
